@@ -4,9 +4,9 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { name: "Destinations", href: "#destinations" },
-  { name: "Experiences", href: "#experiences" },
-  { name: "About", href: "#about" },
+  { name: "Destinations", href: "/destinations" },
+  { name: "Experiences", href: "/experiences" },
+  { name: "About", href: "/about" },
   { name: "Plan Your Trip", href: "#plan" },
 ];
 
@@ -44,17 +44,29 @@ export const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`nav-link ${
-                isScrolled ? "nav-link-dark" : "nav-link-light"
-              }`}
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.href.startsWith("/") ? (
+              <Link
+                key={link.name}
+                to={link.href}
+                className={`nav-link ${
+                  isScrolled ? "nav-link-dark" : "nav-link-light"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`nav-link ${
+                  isScrolled ? "nav-link-dark" : "nav-link-light"
+                }`}
+              >
+                {link.name}
+              </a>
+            )
+          )}
           <a
             href="#plan"
             className="btn-luxury-primary text-xs py-3 px-6"
@@ -85,16 +97,27 @@ export const Header = () => {
             className="lg:hidden bg-background/98 backdrop-blur-md border-t border-border"
           >
             <nav className="container-luxury py-6 flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="nav-link nav-link-dark py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.href.startsWith("/") ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="nav-link nav-link-dark py-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="nav-link nav-link-dark py-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                )
+              )}
               <a
                 href="#plan"
                 className="btn-luxury-primary text-xs py-3 px-6 mt-4 text-center"
